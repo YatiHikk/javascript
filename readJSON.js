@@ -5,19 +5,23 @@
 })();
 
 function addContent(listInfo) {
-    let main = document.getElementById("table-content");
+    const main = document.getElementById("table-content");
 
-    listInfo.forEach(function (item, i) {
-        let row = main.insertRow(1 + i);
-        let owner = row.insertCell(0);
-        let manufacturer = row.insertCell(1);
-        let model = row.insertCell(2);
-        let year = row.insertCell(3);
-
-        owner.innerHTML = item.person.firstname + " " + item.person.lastname;
-        manufacturer.innerHTML = item.car.manufacturer;
-        model.innerHTML = item.car.model;
-        year.innerHTML = item.car.year;
+    listInfo.forEach(function (item, index) {
+        const row = main.insertRow(1 + index);
+        const shortObject = {
+            owner: `${item.person.firstname} ${item.person.lastname}`,
+            manufacturer: item.car.manufacturer,
+            model: item.car.model,
+            year: item.car.year,
+        };
+        
+        Object
+            .values(shortObject)
+            .forEach((propertyValue, propertyIndex) => {
+                const propertyRow = row.insertCell(propertyIndex);
+                propertyRow.innerHTML = propertyValue; 
+            });
     })
 
 };
